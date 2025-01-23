@@ -48,5 +48,5 @@ jobs:
       run: |
         # Replace the following commands with your deployment logic
         echo "Deploying application..."
-        ls ./deploy
+        ls ./publish
         echo "Deployment complete."
