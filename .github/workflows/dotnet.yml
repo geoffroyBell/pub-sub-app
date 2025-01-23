@@ -27,11 +27,20 @@ jobs:
     - name: Publish build output
       run: dotnet publish --no-restore --configuration Release --output ./publish
 
+    - name: install dotnet ef
+      run: dotnet tool install -g dotnet-ef --version ${{env.DOTNET_EF_VERSION}}
+      
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
         name: build-artifact
         path: ./publish
+
+    - name: create /myapp/migrate folder if not existing
+      run: mkdir -p ${{env.PROJECT_FOLDER}}/myapp
+ 
+    - name: dotnet bundle migration
+      run: dotnet ef migrations bundle --runtime linux-x64 -p ${{env.PROJECT_FOLDER}}/${{env.PROJECT_NAME}}.csproj -o ${{env.PROJECT_FOLDER}}/myapp/migrate
         
   deploy:
     needs: build # Ensure deployment waits for the build job to complete successfully
