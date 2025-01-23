@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: [ "develop" ]
 
+env:
+  DOTNET_EF_VERSION: 7.0.0
+  PROJECT_FOLDER: RabbitMqProductAPI
+  PROJECT_NAME: RabbitMqProductAPI
+
 jobs:
   build:
     runs-on: ubuntu-latest
