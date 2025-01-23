@@ -23,3 +23,12 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+
+    - name: Publish build output
+      run: dotnet publish --no-restore --configuration Release --output ./publish
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifact
+        path: ./publish
