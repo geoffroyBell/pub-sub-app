@@ -32,3 +32,21 @@ jobs:
       with:
         name: build-artifact
         path: ./publish
+        
+  deploy:
+    needs: build # Ensure deployment waits for the build job to complete successfully
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifact # Name of the artifact uploaded in the build job
+        path: ./publish # Specify where to download the artifact
+
+    - name: Deploy application
+      run: |
+        # Replace the following commands with your deployment logic
+        echo "Deploying application..."
+        ls ./deploy
+        echo "Deployment complete."
