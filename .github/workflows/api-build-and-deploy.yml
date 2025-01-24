@@ -2,12 +2,9 @@ name: Build, Test, and Deploy API app
 
 on:
   workflow_dispatch:
-
-jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    needs: build
     permissions:
       actions: read
       contents: read
@@ -16,28 +13,28 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp' ]
+        language: [ 'csharp' ]  # Analyse C# pour les projets .NET
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      # Initialize CodeQL with .NET support
+        
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      # Initialize CodeQL with C# language
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           queries: +security-extended
           languages: ${{ matrix.language }}
 
-      # Build the .NET project manually
-      - name: Restore and build project
-        run: |
-          dotnet restore
-          dotnet build --no-restore --configuration Release
-
-      # Perform CodeQL analysis
+      # Run CodeQL analysis
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
+        
   build:
     runs-on: ubuntu-latest
     env:
