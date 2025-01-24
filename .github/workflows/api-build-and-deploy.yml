@@ -73,7 +73,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
     environment:
       name: "Azure"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
