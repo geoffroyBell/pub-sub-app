@@ -63,8 +63,7 @@ jobs:
           dotnet-version: ${{env.DOTNET_VERSION}}
 
       - name: Run unit tests
-        working-directory: ${{env.PROJECT_FOLDER}}
-        run: dotnet RabbitMqProductAPI.Tests/RabbitMqProductAPI.Tests.csproj
+        run: dotnet test RabbitMqProductAPI.Tests/RabbitMqProductAPI.Tests.csproj
 
       - name: Publish test results
         uses: actions/upload-artifact@v4
