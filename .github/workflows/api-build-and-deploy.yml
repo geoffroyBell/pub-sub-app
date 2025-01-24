@@ -20,7 +20,11 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.x"
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build with dotnet
+        working-directory: ${{ env.PROJECT_FOLDER }}
+        run: dotnet build --configuration Release
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
