@@ -62,7 +62,7 @@ jobs:
 
       - name: Run unit tests
         working-directory: ${{ env.TEST_PROJECT_FOLDER }}
-        run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test_results.trx"
+        run: dotnet test RabbitMqProductAPI.Tests/RabbitMqProductAPI.Tests.csproj --configuration Release --logger "trx;LogFileName=test_results.trx"
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
