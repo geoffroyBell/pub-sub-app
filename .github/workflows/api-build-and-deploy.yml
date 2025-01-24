@@ -5,6 +5,11 @@ on:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    env:
+      PROJECT_FOLDER: "RabbitMqProductAPI"
+      PROJECT_NAME: "RabbitMqProductAPI"
+      DOTNET_VERSION: "9.x"
+      DOTNET_EF_VERSION: "9.0.1"
     permissions:
       actions: read
       contents: read
