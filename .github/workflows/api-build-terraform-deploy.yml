@@ -77,7 +77,8 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init -backend-config="resource_group_name=${{env.TF_VAR_RESOURCE_GROUP}}" \
+      run: |
+        terraform init -backend-config="resource_group_name=${{env.TF_VAR_RESOURCE_GROUP}}" \
         -backend-config="storage_account_name=${{env.TF_VAR_STORAGE_ACCOUNT}}" \
         -backend-config="container_name=${{env.TF_VAR_CONTAINER}}" \
         -backend-config="key=${{env.TF_VAR_STATE_KEY}}"
