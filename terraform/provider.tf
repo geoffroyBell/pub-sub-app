@@ -1,16 +1,11 @@
 terraform {
-
-  backend "local" {
-    path = "terraform.tfstate"
-  }
+  # Local backend storage example
+  # backend "local" {
+  #   path = "terraform.tfstate"
+  # }
 
   # Azure backend storage example
-  # backend "azurerm" {
-  #   resource_group_name   = "myResourceGroup"
-  #   storage_account_name  = "mystorageaccount"
-  #   container_name        = "tfstate"
-  #   key                   = "terraform.tfstate"
-  # }
+  backend "azurerm" {}
 
   required_providers {
     azurerm = {
