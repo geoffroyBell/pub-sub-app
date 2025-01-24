@@ -12,6 +12,7 @@ resource "azurerm_container_group" "res-1" {
   os_type             = "Linux"
   resource_group_name = data.azurerm_resource_group.res-0.name
   restart_policy      = "OnFailure"
+  ip_address_type     = "None"
   container {
     cpu = 1
     environment_variables = {
@@ -27,7 +28,7 @@ resource "azurerm_container_group" "res-1" {
   }
   diagnostics {
     log_analytics {
-      log_type      = "ContainerInstanceLogs"
+      log_type      = "ContainerInsights"
       workspace_id  = data.azurerm_log_analytics_workspace.res-3.workspace_id
       workspace_key = data.azurerm_log_analytics_workspace.res-3.primary_shared_key
     }
@@ -40,6 +41,7 @@ resource "azurerm_container_group" "res-2" {
   os_type             = "Linux"
   resource_group_name = data.azurerm_resource_group.res-0.name
   restart_policy      = "OnFailure"
+  ip_address_type     = "Public"
   container {
     cpu    = 1
     image  = local.rabbitmq_docker_image
@@ -58,7 +60,7 @@ resource "azurerm_container_group" "res-2" {
   }
   diagnostics {
     log_analytics {
-      log_type      = "ContainerInstanceLogs"
+      log_type      = "ContainerInsights"
       workspace_id  = data.azurerm_log_analytics_workspace.res-3.workspace_id
       workspace_key = data.azurerm_log_analytics_workspace.res-3.primary_shared_key
     }
