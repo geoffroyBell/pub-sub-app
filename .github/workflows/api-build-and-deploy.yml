@@ -42,7 +42,7 @@ jobs:
 
       # Run CodeQL analysis
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         
   build:
     runs-on: ubuntu-latest
