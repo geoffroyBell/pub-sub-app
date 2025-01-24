@@ -1,4 +1,4 @@
-name: Build, Test, and Deploy API app
+name: Deploy API app
 
 on:
   workflow_dispatch:
