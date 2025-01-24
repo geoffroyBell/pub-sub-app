@@ -70,4 +70,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: ${{env.PROJECT_FOLDER}}/TestResults/
+          path: ${{env.PROJECT_FOLDER}}/RabbitMqProductAPI.Tests/
