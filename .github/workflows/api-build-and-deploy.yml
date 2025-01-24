@@ -4,9 +4,6 @@
 name: Build and deploy API app
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
