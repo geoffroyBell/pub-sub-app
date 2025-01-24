@@ -4,6 +4,40 @@ on:
   workflow_dispatch:
 
 jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp' ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Initialize CodeQL with .NET support
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          queries: +security-extended
+          languages: ${{ matrix.language }}
+
+      # Build the .NET project manually
+      - name: Restore and build project
+        run: |
+          dotnet restore
+          dotnet build --no-restore --configuration Release
+
+      # Perform CodeQL analysis
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
   build:
     runs-on: ubuntu-latest
     env:
