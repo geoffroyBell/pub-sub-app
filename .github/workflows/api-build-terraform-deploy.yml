@@ -89,7 +89,16 @@ jobs:
       id: tf-plan
       run: |
         export exitcode=0
-        terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+        terraform plan -var 'project_name=' \
+        -var 'owner_name=${{ secrets.OWNER_NAME }}' \
+        -var 'resource_group_name=${{ secrets.TF_VAR_RESOURCE_GROUP }}' \
+        -var 'log_analytics_workspace_name=${{ secrets.LOG_ANALYTICS_WS_NAME }}' \
+        -var 'location=${{ secrets.LOCATION }}' \
+        -var 'RabbitMQ-Password=${{ secrets.RABBITMQ_PASSWORD }}' \
+        -var 'RabbitMQ-Username=${{ secrets.RABBITMQ_USERNAME }}' \
+        -var 'sql-server-username=${{ secrets.SQL_USERNAME }}' \
+        -var 'sql-server-password=${{ secrets.SQL_PASSWORD }}' \
+        -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
         
