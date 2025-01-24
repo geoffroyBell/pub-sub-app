@@ -57,11 +57,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # - name: Set up .NET Core
+      #   uses: actions/setup-dotnet@v3
+      #   with:
+      #     dotnet-version: ${{env.DOTNET_VERSION}}
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{env.DOTNET_VERSION}}
-
+          dotnet-version: "9.0.100-preview"
       - name: Run unit tests
         run: dotnet test RabbitMqProductAPI.Tests/RabbitMqProductAPI.Tests.csproj
 
