@@ -7,42 +7,39 @@ on:
   
 jobs:
   analyze:
-    name: Analyze
     runs-on: ubuntu-latest
-    env:
-      PROJECT_FOLDER: "RabbitMqProductAPI"
-      PROJECT_NAME: "RabbitMqProductAPI"
-      DOTNET_VERSION: "9.x"
-      DOTNET_EF_VERSION: "9.0.1"
     permissions:
       actions: read
       contents: read
       security-events: write
 
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'csharp' ]  # Analyse C# pour les projets .NET
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          
-      # Initialize CodeQL with C# language
+          dotnet-version: "8.x"
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
-          queries: +security-extended
-          languages: ${{ matrix.language }}
+          languages: csharp
 
-      # Run CodeQL analysis
+      - name: List files for debugging
+        run: ls -R
+
+      - name: Restore and build project
+        run: |
+          dotnet restore
+          dotnet build --configuration Release --no-incremental
+
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v2
+
+    env:
+      CODEQL_EXTRACTOR_CSHARP_DIAGNOSTICS: "debug"
         
   build:
     runs-on: ubuntu-latest
