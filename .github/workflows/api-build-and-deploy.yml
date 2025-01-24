@@ -47,7 +47,6 @@ jobs:
         with:
           name: .net-app
           path: ${{env.PROJECT_FOLDER}}/myapp
-
   test:
     runs-on: ubuntu-latest
     needs: build
