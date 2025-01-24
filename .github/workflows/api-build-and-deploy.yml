@@ -1,6 +1,9 @@
 name: Deploy API app
 
 on:
+  push:
+    branches:
+      - develop
   workflow_dispatch:
 
   analyze:
